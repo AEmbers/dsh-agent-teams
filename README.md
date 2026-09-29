@@ -30,7 +30,9 @@ Ask in natural language. The plugin provides the team protocol, 14 coordination 
 
 ## Releases
 
-[v0.1.22-rc.1](./release-notes/v0.1.22-rc.1.md) prepares for Harness desktop 0.2.0 and fixes Git installation by shipping prebuilt entries. This preview uses npm `next`; the recommended host is Harness `0.1.7-rc.2` (its `next` channel). See the exact [support matrix](./compatibility.json).
+[v0.1.22-rc.2](./release-notes/v0.1.22-rc.2.md) adapts this project to the DeepSeek Harness desktop **`0.2.0-rc.2`** release: every host peer now accepts `0.2.0-rc.2`, and the development baseline, pnpm overrides and support policy move with it. This preview uses npm `next`; the recommended host is Harness `0.2.0-rc.2`. See the exact [support matrix](./compatibility.json) and the [adaptation report](./docs/harness-0.2.0-rc.2-adaptation/README.md).
+
+[v0.1.22-rc.1](./release-notes/v0.1.22-rc.1.md) prepared for Harness desktop 0.2.0 and fixed Git installation by shipping prebuilt entries.
 
 ## Why AgentTeams?
 
@@ -49,32 +51,33 @@ The conversation card and activity panel use Harness's official locale service. 
 
 ## Install and choose versions
 
-**Recommended pair: DeepSeek Harness `0.1.7-rc.2` + AgentTeams `0.1.22-rc.1`. Both packages are prereleases.**
+**Recommended pair: DeepSeek Harness `0.2.0-rc.2` + AgentTeams `0.1.22-rc.2`. Both packages are prereleases.**
 
 | Use case | DeepSeek Harness | AgentTeams plugin |
 | --- | --- | --- |
-| **Recommended** | **`0.1.7-rc.2`** | **`0.1.22-rc.1`** |
-| Legacy RC | `0.1.5-rc.1`, `0.1.5-rc.2`, `0.1.5-rc.3` | `0.1.22-rc.1` |
-| Retaining an older RC | `0.1.2-rc.1` | `0.1.22-rc.1` |
-| Developer Alpha testing | `0.1.2-alpha.5` | `0.1.22-rc.1` |
-| Retaining an older Alpha | `0.1.2-alpha.2` | `0.1.22-rc.1` |
+| **Recommended** | **`0.2.0-rc.2`** | **`0.1.22-rc.2`** |
+| Previous RC | `0.1.7-rc.2` | `0.1.22-rc.2` |
+| Legacy RC | `0.1.5-rc.1`, `0.1.5-rc.2`, `0.1.5-rc.3` | `0.1.22-rc.2` |
+| Retaining an older RC | `0.1.2-rc.1` | `0.1.22-rc.2` |
+| Developer Alpha testing | `0.1.2-alpha.5` | `0.1.22-rc.2` |
+| Retaining an older Alpha | `0.1.2-alpha.2` | `0.1.22-rc.2` |
 
 ### Desktop app
 
 In the app sidebar, open **Plugins → Add plugin** and enter the npm package spec:
 
 ```text
-@nanmicoder/dsh-agent-teams@0.1.22-rc.1
+@nanmicoder/dsh-agent-teams@0.1.22-rc.2
 ```
 
 Install it, then choose **Enable now**. If the host asks for a restart, restart the desktop app. Use the package spec above for the published build; an npm or GitHub webpage URL is not the same install source. For Git installation, use a commit containing the verified build outputs described below.
 
-The desktop app supplies its own Harness core and package manager. Upgrading the global CLI does not upgrade that core, and replacing `--profile web` with `--profile desktop` in a CLI command does not install into the app. Check the embedded core against the compatibility list. The upcoming `0.2.0` desktop release is being pre-adapted against source commit `21638c56315ae6a2b552d6091945d3144c9af32e`; it is recorded separately as a source candidate, not in the published-host support matrix above. See the [0.2.0 pre-adaptation scope and evidence](./docs/harness-0.2.0-pre-adaptation/README.md).
+The desktop app supplies its own Harness core and package manager. Upgrading the global CLI does not upgrade that core, and replacing `--profile web` with `--profile desktop` in a CLI command does not install into the app. Check the embedded core against the compatibility list. The published `0.2.0-rc.2` desktop release is the recommended host and is listed in the support matrix above; the official `0.2.0` source line remains recorded separately as a source candidate. See the [0.2.0-rc.2 adaptation report](./docs/harness-0.2.0-rc.2-adaptation/README.md) and the [0.2.0 pre-adaptation scope and evidence](./docs/harness-0.2.0-pre-adaptation/README.md).
 
 ### CLI / Web: 1. Install DeepSeek Harness
 
 ```sh
-npm install --global @deepseek-ai/dsh@0.1.7-rc.2
+npm install --global @deepseek-ai/dsh@0.2.0-rc.2
 dsh --version
 ```
 
@@ -85,7 +88,7 @@ Skip this if you already run this version. Alpha is opt-in: select an exact Alph
 Install or upgrade from npm (pinned to this `next` preview):
 
 ```sh
-dsh plugin --profile web add --save-exact @nanmicoder/dsh-agent-teams@0.1.22-rc.1
+dsh plugin --profile web add --save-exact @nanmicoder/dsh-agent-teams@0.1.22-rc.2
 ```
 
 For a CLI-managed installation, replace `web` with your active CLI profile. **Stop and restart that profile's Harness process, then refresh the browser.** Installing the plugin does not upgrade Harness; the host and plugin have independent `latest` channels.

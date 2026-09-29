@@ -22,7 +22,12 @@ test('source candidates pass the peer gate without entering the published downlo
     [{ ...policy.sourceCandidates[0], commit: 'master' }],
     [{ ...policy.sourceCandidates[0], version: policy.recommendedHost }],
   ]) assert.throws(() => validatePolicy({ ...policy, sourceCandidates }), /Source candidates/)
-  pkg.peerDependencies['@deepseek-ai/dsh-agent'] = pkg.peerDependencies['@deepseek-ai/dsh-agent'].replace(' || 0.2.0', '')
+  // Drop the source-candidate token from the peer range. This must be order-independent:
+  // the range enumerates both `0.2.0` and `0.2.0-rc.2`, so a literal `.replace(' || 0.2.0', '')`
+  // would silently delete whichever token happens to come first.
+  const agentTokens = pkg.peerDependencies['@deepseek-ai/dsh-agent'].split('||').map(value => value.trim())
+  assert.ok(agentTokens.includes('0.2.0'), 'fixture precondition: the peer range must enumerate the 0.2.0 source candidate')
+  pkg.peerDependencies['@deepseek-ai/dsh-agent'] = agentTokens.filter(value => value !== '0.2.0').join(' || ')
   assert.throws(() => validatePackageCompatibility(pkg), /source candidates/)
 })
 
